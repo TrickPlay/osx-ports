@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 80412 2011-07-12 13:23:04Z jmr@macports.org $
+
+PortSystem              1.0
+PortGroup               archcheck 1.0
+PortGroup               muniversal 1.0
+
+name                    atk
+version                 2.6.0
+epoch                   2
+set branch              [join [lrange [split ${version} .] 0 1] .]
+categories              devel
+license                 LGPL-2+
+maintainers             singingwolfboy openmaintainer
+platforms               darwin
+
+description             GNOME accessibility toolkit
+
+long_description        ATK is the GNOME Accessibility ToolKit
+
+homepage                http://projects.gnome.org/accessibility/
+master_sites            gnome:sources/${name}/${branch}/
+use_xz              yes
+
+checksums           md5     6b34e2a63dda4429b5692be7ca3aa5bf \
+                    sha1    951f9cd195dcab855c7779cfcba21153106cb754 \
+                    rmd160  caff60870965b2b5528fd5a7ce0b20b4edcf3e85
+
+depends_build           port:pkgconfig \
+                        port:gtk-doc
+
+depends_lib             path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                        port:gettext \
+                        port:libiconv
+
+archcheck.files-append  lib/libglib-2.0.dylib \
+                        lib/libintl.dylib \
+                        lib/libiconv.dylib
+
+configure.args          --enable-static \
+                        --disable-introspection
+
+livecheck.type          regex
+livecheck.url           http://ftp.gnome.org/pub/gnome/sources/${name}/${branch}/
+livecheck.regex         {LATEST-IS-(\d+(?:\.\d+)*)}

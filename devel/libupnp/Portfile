@@ -1,0 +1,25 @@
+# -*- Mode: Tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:et:sw=4:ts=4:sts=4
+# $Id: Portfile 38171 2008-07-10 11:03:48Z sfiera@macports.org $
+
+PortSystem 1.0
+
+name                libupnp
+version             1.6.13
+categories          devel
+platforms           darwin
+maintainers         sfiera
+description         A portable open source UPnP development kit
+long_description \
+    The portable SDK for UPnP(tm) Devices (libupnp) provides developers with \
+    an API and open source code for building control points, devices, and \
+    bridges that are compliant with Version 1.0 of the Universal Plug and Play \
+    Device Architecture Specification.
+
+homepage            http://pupnp.sourceforge.net
+master_sites        sourceforge:pupnp
+use_bzip2           yes
+
+configure.args      --enable-ipv6
+
+checksums			rmd160  86f2eb1d0d5b5a8627bb82400724426b6b22044e \
+					sha256  5c1dd7f4c13ab321685063e25b874e44bf31d6e170fe51ddae47abe4f41523ee
