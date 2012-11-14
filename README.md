@@ -11,6 +11,7 @@ How to use
 
 This will set up MacPorts to know about newer versions of various packages that will give you a better TrickPlay experience.  It'll also create a placeholder package for TrickPlay's dependencies so all the right versions of all the packages can be installed with one easy command:
 
+    sudo port self-update
     sudo port install trickplay-deps +quartz -x11 +no_x11 +no_gnome +ares +ssl
 
 After you've done that, you should then be able to build the trickplay engine from source.  Some day we'll have release versions of the engine installable directly from MacPorts.
