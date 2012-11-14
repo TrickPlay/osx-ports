@@ -1,8 +1,20 @@
 OSX Ports
 ---------
 
+Pre-requisites
+--------------
+
+First, install XCode.  You can get it through the App Store (on the apple menu).
+Once XCode is installed, you need to install the XCode command line tools.  To do this, launch XCode, then go to Preferences.  Click the "Downloads" tab, and install command line tools.
+Next, install [MacPorts][mp].  Use the PKG version of the MacPorts install.
+
+mp: http://www.macports.org/install.php
+
+
 How to use
 ----------
+
+Once the prereqs are all installed, you need to fetch our special ports and then install.
 
     cd ${HOME}
     git clone git@github.com:TrickPlay/osx-ports.git .ports
