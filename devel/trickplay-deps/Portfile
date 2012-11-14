@@ -1,0 +1,75 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem      1.0
+
+name            trickplay-deps
+version         1.28.0
+categories      devel
+platforms       darwin
+maintainers     trickplay.com:craig
+
+description     Virtual dependency package for TrickPlay engine libraries
+
+long_description    The TrickPlay engine requires a number of 3rd party open-source libraries. \
+                    This virtual package will install all the required packages using the \
+                    MacPorts system.
+
+homepage        http://trickplay.com/
+master_sites
+depends_lib     \
+                port:atk \
+                port:cairo \
+                port:clutter \
+                port:clutter-gst \
+                port:cogl \
+                port:curl \
+                port:expat \
+                port:fontconfig \
+                port:freetype \
+                port:gdk-pixbuf2 \
+                port:gettext \
+                port:giflib \
+                port:glib2 \
+                port:gst-plugins-base \
+                port:gstreamer \
+                port:jpeg \
+                port:json-glib \
+                port:libexif \
+                port:libpng \
+                port:libsndfile \
+                port:libsoup \
+                port:libupnp \
+                port:libxml2 \
+                port:openssl \
+                port:ossp-uuid \
+                port:pango \
+                port:readline \
+                port:sqlite3 \
+                port:tiff \
+                port:uriparser \
+                port:ninja
+
+distfiles
+use_configure   no
+build       { }
+
+# Make a simple README since I guess MacPorts gets cranky if a port has no actual files in it
+destroot    {
+    file mkdir ${destroot}${prefix}/share/doc
+    system "echo ${long_description} > ${destroot}${prefix}/share/doc/README.${name}.txt"
+}
+
+
+notes "
+You should now be able to build the trickplay engine from source. Some day we'll have release versions of the engine installable directly from MacPorts.
+
+cd \${HOME}/somepath
+git clone git@git.trickplay.com:tp-master.git trickplay
+cd trickplay
+mkdir build
+CC=clang CXX=clang++ cmake -G Ninja -DTP_WITH_WEBGL=1 -DTP_PROFILING=1 -DCMAKE_BUILD_TYPE=RelMinSize -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -H. -Bbuild
+ninja -C build
+"
+
+livecheck.type  none
