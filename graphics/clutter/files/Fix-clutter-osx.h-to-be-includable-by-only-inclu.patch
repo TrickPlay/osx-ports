@@ -1,0 +1,11 @@
+--- clutter/osx/clutter-osx.h
++++ clutter/osx/clutter-osx.h
+@@ -24,7 +24,7 @@
+ 
+ #import <AppKit/AppKit.h>
+ 
+-#include <clutter/clutter-stage.h>
++#include <clutter/clutter.h>
+ 
+ @class NSEvent;
+ 
