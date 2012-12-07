@@ -1,0 +1,42 @@
+--- clutter/osx/clutter-osx.h
++++ clutter/osx/clutter-osx.h
+@@ -38,6 +38,8 @@ void _clutter_events_osx_uninit (void);
+ 
+ void _clutter_event_osx_put     (NSEvent *nsevent, ClutterStage *wrapper);
+ 
++NSWindow *   clutter_osx_get_stage_window  (ClutterStage *stage);
++
+ G_END_DECLS
+ 
+ #endif /* __CLUTTER_OSX_H__ */
+--- clutter/osx/clutter-stage-osx.c
++++ clutter/osx/clutter-stage-osx.c
+@@ -38,6 +38,28 @@ enum
+   PROP_WRAPPER
+ };
+ 
++/**
++ * clutter_osx_get_stage_window: (skip)
++ * @stage: a #ClutterStage
++ *
++ * Gets the stages NSWindow.
++ *
++ * Return value: An NSWindow for the stage window.
++ *
++ * Since: 1.14
++ */
++NSWindow *   clutter_osx_get_stage_window  (ClutterStage *stage)
++{
++  ClutterStageWindow *impl;
++
++  g_return_val_if_fail (CLUTTER_IS_STAGE (stage), nil);
++
++  impl = _clutter_stage_get_window (stage);
++  g_assert (CLUTTER_IS_STAGE_OSX (impl));
++
++  return CLUTTER_STAGE_OSX (impl)->window;
++}
++
+ static void clutter_stage_window_iface_init (ClutterStageWindowIface *iface);
+ 
+ #define clutter_stage_osx_get_type      _clutter_stage_osx_get_type

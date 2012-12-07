@@ -5,6 +5,7 @@ PortSystem          1.0
 
 name                clutter
 version             1.12.0
+revision			1
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -32,7 +33,8 @@ depends_lib         port:atk \
                     port:xorg-libXcomposite \
                     port:json-glib
 
-patchfiles			clutter-osx-backend-fix.patch
+patchfiles			clutter-osx-backend-fix.patch \
+					clutter-osx-get-stage-window.patch
 
 configure.args      --enable-x11-backend=yes \
 					--enable-xinput=yes \
