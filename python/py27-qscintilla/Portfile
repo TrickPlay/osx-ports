@@ -1,0 +1,58 @@
+# $Id: Portfile 100261 2012-12-06 04:38:43Z jmr@macports.org $
+
+PortSystem          1.0
+PortGroup           qt4 1.0
+#
+# PortGroup           python27 1.0
+#
+# We do not use the 'PortGroup' sugar since this python module is built
+# quite differently than standard python extension modules.
+
+# WARNING: The version of these python bindings must match the version
+#          number of the installed qscintilla port, or configure/building
+#          will fail with strange error messages.
+
+name                py27-qscintilla
+version             2.7
+categories          python devel
+license             {GPL-2 GPL-3}
+maintainers         adfernandes openmaintainer
+description         Python bindings for QScintilla
+homepage            http://www.riverbankcomputing.com/software/qscintilla/
+platforms           darwin
+
+long_description	Python bindings for QScintilla, \
+                    a port to Qt of Neil Hodgson's Scintilla C++ editor control.
+
+#
+# NOTE: the version of this port must be kept in sync with the 'qscintilla' port,
+#       since it contains the 'main' software distribution!
+#
+
+dist_subdir         qscintilla
+distname            QScintilla-gpl-${version}
+master_sites        http://www.riverbankcomputing.com/static/Downloads/QScintilla2/ \
+                    http://gentoo.mirrors.easynews.com/linux/gentoo/distfiles/ \
+                    http://www.gtlib.gatech.edu/pub/gentoo/distfiles/ \
+                    http://gentoo.osuosl.org/distfiles/
+
+checksums           md5     a3857d75a2b332e0460131e0aa4cc4b5 \
+                    sha1    296c03343f5d84f0c06a16eb3fb706e0eb735ea6 \
+                    rmd160  0d9785107172dfaa4a07812ee4efffbf59d454cd
+
+depends_lib         port:qscintilla port:python27 port:py27-pyqt4
+
+universal_variant   no
+
+configure.dir       ${worksrcpath}/Python
+configure.cmd       "${prefix}/bin/python2.7 configure.py; echo"
+
+build.dir           ${worksrcpath}/Python
+build.cmd           ${build.cmd}
+
+destroot.dir        ${worksrcpath}/Python
+destroot.cmd        ${build.cmd} install
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     QScintilla-gpl-\(\\d+.\\d+.\\d+\).tar.gz
