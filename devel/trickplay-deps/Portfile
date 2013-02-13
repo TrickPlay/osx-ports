@@ -33,6 +33,7 @@ depends_lib     \
                 port:glib2 \
                 port:gst-plugins-base \
                 port:gstreamer \
+                port:ImageMagick \
                 port:jpeg \
                 port:json-glib \
                 port:libexif \
