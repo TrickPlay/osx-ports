@@ -22,7 +22,15 @@ Once the prereqs are all installed, you need to fetch our special ports and then
     sudo port self-update
     portindex
 
-This will set up MacPorts to know about newer versions of various packages that will give you a better TrickPlay experience.  It'll also create a placeholder package for TrickPlay's dependencies so all the right versions of all the packages can be installed with one easy command:
+This will set up MacPorts to know about newer versions of various packages that will give you a better TrickPlay experience.  It'll also create a placeholder package for TrickPlay's dependencies so all the right versions of all the packages can be installed with one easy command.
+
+Next, you need to tell MacPorts to look in this newly created directory for package definitions:
+
+    sudo echo "${HOME}/.ports" | pbcopy
+    sudo vi /var/local/etc/macports/sources.list
+    # Now type: ":$<enter>A<cmd-v><esc><esc>wq!" without the quotes
+
+Next, we tell the ports system to update itself, and then install everything:
 
     sudo port self-update
     sudo port install cairo +quartz +x11  pango +quartz +x11 curl +ares +ssl giflib +no_x11 gst-plugins-base +no_x11 +no_gnome_vfs libsoup +no_gnome cogl +quartz +no_x11 -x11 clutter +quartz +no_x11 -x11 gst-ffmpeg gst-plugins-bad +no_x11 gst-plugins-good gst-plugins-ugly trickplay-deps
