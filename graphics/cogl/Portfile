@@ -5,7 +5,7 @@ PortSystem          1.0
 
 name                cogl
 version             1.12.2
-revision            1
+revision            2
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -16,7 +16,7 @@ long_description    Clutter is an open source software library for \
                     user interfaces.
 homepage            http://www.clutter-project.org/
 master_sites        http://download.gnome.org/sources/${name}/${branch}/
-use_xz	            yes
+use_xz              yes
 
 
 checksums           md5     439fd7aa2195d76b5cd8ee393f0112b4 \
@@ -27,38 +27,55 @@ depends_build       port:pkgconfig
 
 depends_lib         port:cairo \
                     port:pango \
-                    port:gdk-pixbuf2 \
-                    port:mesa \
-                    port:xorg-libXdamage \
-                    port:xorg-libXcomposite \
-                    port:json-glib
+                    port:gobject-introspection
 
-configure.args      --with-x \
-                    --x-includes=${prefix}/include \
-                    --x-libraries=${prefix}/lib \
-                    --enable-introspection=no \
-                    --disable-gtk-doc
+configure.args      --enable-introspection=no
 
-platform macosx {
-    variant no_x11 requires quartz {
-    }
-
-    variant quartz {
-        depends_lib-delete    port:mesa \
-                              port:gdk-pixbuf2 \
-                              port:xorg-libXdamage \
-                              port:xorg-libXcomposite
-
-        configure.args-delete --with-x \
-                              --x-includes=${prefix}/include \
-                              --x-libraries=${prefix}/lib
-
-        configure.args-append --enable-glx=no \
-                              --enable-gdb-pixbuf=no \
-                              --enable-quartz-image=yes
-    }
+post-patch {
+    reinplace "/SUBDIRS/s/tests//" ${worksrcpath}/Makefile.am
 }
 
-livecheck.type      regex
-livecheck.url       http://download.gnome.org/sources/${name}/${branch}/
-livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"
+use_autoreconf  yes
+autoreconf.args -fvi
+
+#
+# if clutter is installed and version is less than 1.12.0
+# deactivate clutter before activating cogl to avoid conflict
+#
+# previous versions included cogl in port clutter
+#
+
+pre-activate {
+    if { [file exists ${prefix}/lib/pkgconfig/clutter-1.0.pc]
+        && ![catch {set vers [lindex [registry_active clutter] 0]}]
+        && [vercmp [lindex $vers 1] 1.12.0] < 0} {
+
+        registry_deactivate clutter "" "" "" [list ports_nodepcheck 1]
+     }
+}
+
+variant x11 conflicts quartz {
+    depends_lib-append      port:gdk2-pixbuf \
+                            port:xorg-libXcomposite \
+                            port:xorg-libXdamage \
+                            port:xorg-libXext \
+                            port:mesa
+
+    configure.args-append   --enable-gdk-pixbuf=yes \
+                            --enable-quartz-image=no \
+                            --with-x
+}
+
+variant quartz conflicts x11 {
+    configure.args-append   --enable-gdb-pixbuf=no \
+                            --enable-quartz-image=yes \
+                            --without-x
+}
+
+variant debug {
+    configure.args-append   --enable-debug
+}
+
+default_variants    +quartz -x11
+
+livecheck.url   http://ftp.gnome.org/pub/gnome/sources/${name}/${branch}
