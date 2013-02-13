@@ -4,8 +4,8 @@
 PortSystem          1.0
 
 name                clutter
-version             1.12.0
-revision			2
+version             1.12.2
+revision            1
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -18,8 +18,8 @@ homepage            http://www.clutter-project.org/
 master_sites        http://download.gnome.org/sources/${name}/${branch}/
 use_xz              yes
 
-checksums           rmd160  032128efeddc030620dba3f3184e600e0530018f \
-                    sha256  e75130a5df6dbe97e8d350259278331c6352b2d213230712127160e42053e558
+checksums           rmd160  c654defd32c2fb20653e46ba541ef544e6c4b11b \
+                    sha256  27a8c4495099ea33de39c2d9a911a2c9e00ffa4dcc8f94fafedbcc752c0ddf13
 
 depends_build       port:pkgconfig
 

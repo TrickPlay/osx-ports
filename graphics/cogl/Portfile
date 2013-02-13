@@ -4,7 +4,8 @@
 PortSystem          1.0
 
 name                cogl
-version             1.12.0
+version             1.12.2
+revision            1
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -18,9 +19,9 @@ master_sites        http://download.gnome.org/sources/${name}/${branch}/
 use_xz	            yes
 
 
-checksums           md5     2ec55647764ee208182fbe07ee9f7e9c \
-                    sha1    f759e9945ba728769ec8cb2c7ec41e709757bf6d \
-                    rmd160  85b548feaa113cbdcd9010c45bf0e8110ece2e78
+checksums           md5     439fd7aa2195d76b5cd8ee393f0112b4 \
+                    sha1    95b5a77709772b185051416c0dd57d30aa4aad0f \
+                    rmd160  fb0bba618f06028e9c1c6b1904dfcc0fc4f659dc
 
 depends_build       port:pkgconfig
 
