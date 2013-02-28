@@ -32,11 +32,12 @@ depends_lib     \
                 port:gettext \
                 port:giflib \
                 port:glib2 \
-                port:gstreamer1-gst-plugins-base \
-                port:gstreamer1-gst-plugins-good \
-                port:gstreamer1-gst-plugins-bad \
-                port:gstreamer1-gst-plugins-ugly \
-                port:gstreamer1 \
+                port:gstreamer010-gst-ffmpeg \
+                port:gstreamer010-gst-plugins-base \
+                port:gstreamer010-gst-plugins-good \
+                port:gstreamer010-gst-plugins-bad \
+                port:gstreamer010-gst-plugins-ugly \
+                port:gstreamer010 \
                 port:ImageMagick \
                 port:jpeg \
                 port:json-glib \
