@@ -4,7 +4,7 @@
 PortSystem      1.0
 
 name            clutter-gst
-version         1.6.0
+version         2.0.2
 set branch      [string range $version 0 [expr [string last "." $version] - 1]]
 categories      graphics
 description     Clutter GStreamer integration library.
@@ -17,9 +17,9 @@ homepage        http://www.clutter-project.org/
 master_sites    http://download.gnome.org/sources/${name}/${branch}/
 use_xz          yes
 
-checksums           md5     d60ab0118730cecd5dd9988ad7da034b \
-                    sha1    bfc34430f611ca0431ebb248ff63e398cc48d5d2 \
-                    rmd160  1b34af44136ec413af2c55326b1ff8728516e929
+checksums           md5     318195c75721b65ec568e479b4a9858c \
+                    sha1    00ffd71bb4e8709275a0ea2fddeac7518f469212 \
+                    rmd160  f18fbb17d188eab30b0488a6e673cdb9fc2218a1
 
 patchfiles          include-opengl.patch
 
@@ -28,7 +28,7 @@ depends_build \
 
 depends_lib \
     port:clutter \
-    port:gst-plugins-base
+    port:gstreamer1-gst-plugins-base
 
 configure.args  --enable-introspection=no \
                 --disable-gtk-doc

@@ -4,7 +4,8 @@
 PortSystem      1.0
 
 name            trickplay-deps
-version         1.28.0
+version         2.0.0
+revision        2
 categories      devel
 platforms       darwin
 maintainers     trickplay.com:craig
@@ -31,8 +32,11 @@ depends_lib     \
                 port:gettext \
                 port:giflib \
                 port:glib2 \
-                port:gst-plugins-base \
-                port:gstreamer \
+                port:gstreamer1-gst-plugins-base \
+                port:gstreamer1-gst-plugins-good \
+                port:gstreamer1-gst-plugins-bad \
+                port:gstreamer1-gst-plugins-ugly \
+                port:gstreamer1 \
                 port:ImageMagick \
                 port:jpeg \
                 port:json-glib \
