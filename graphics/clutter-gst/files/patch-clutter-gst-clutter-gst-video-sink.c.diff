@@ -1,0 +1,13 @@
+--- clutter-gst/clutter-gst-video-sink.c.orig	2012-04-27 04:11:08.000000000 -0700
++++ clutter-gst/clutter-gst-video-sink.c	2013-01-15 04:21:55.000000000 -0800
+@@ -69,6 +69,10 @@
+ #include <X11/Xlib.h>
+ #endif
+
++#if defined (CLUTTER_WINDOWING_OSX)
++#include <GL/gl.h>
++#endif
++
+ #include <glib.h>
+ #include <string.h>
+

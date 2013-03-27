@@ -4,8 +4,7 @@
 PortSystem          1.0
 
 name                cogl
-version             1.12.2
-revision            4
+version             1.14.0
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -19,15 +18,19 @@ master_sites        http://download.gnome.org/sources/${name}/${branch}/
 use_xz              yes
 
 
-checksums           md5     439fd7aa2195d76b5cd8ee393f0112b4 \
-                    sha1    95b5a77709772b185051416c0dd57d30aa4aad0f \
-                    rmd160  fb0bba618f06028e9c1c6b1904dfcc0fc4f659dc
+checksums           md5     7eabaf4241c0b87cc9e3b0fa23fd0315 \
+                    sha1    ff9a60b54fe79eb336af9c1b686f71f6af6f84f9 \
+                    rmd160  69a87d46c21999bde675a518ab3cbb5dfa159131
 
 depends_build       port:pkgconfig
 
 depends_lib         port:cairo \
                     port:pango \
                     port:gobject-introspection
+
+
+patchfiles          0001-New-error-parameter-added-to-bitmap-functions.patch
+
 
 configure.args      --enable-introspection=no
 configure.ldflags-append    -framework AppKit -framework CoreFoundation -framework CoreGraphics

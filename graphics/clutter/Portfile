@@ -4,8 +4,7 @@
 PortSystem          1.0
 
 name                clutter
-version             1.12.2
-revision            4
+version             1.14.0
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -18,8 +17,8 @@ homepage            http://www.clutter-project.org/
 master_sites        http://download.gnome.org/sources/${name}/${branch}/
 use_xz              yes
 
-checksums           rmd160  c654defd32c2fb20653e46ba541ef544e6c4b11b \
-                    sha256  27a8c4495099ea33de39c2d9a911a2c9e00ffa4dcc8f94fafedbcc752c0ddf13
+checksums           rmd160  82b1058b553aaa17f555271f4cb51f997882f9ed \
+                    sha256  3b7a07373c27fad4f0cf59fd66a6855d66f9a42b7b570a00ca51a8b488af64d5
 
 depends_build       port:pkgconfig
 
@@ -33,10 +32,8 @@ depends_lib         port:atk \
                     port:xorg-libXcomposite \
                     port:json-glib
 
-patchfiles			clutter-osx-backend-fix.patch \
-					clutter-osx-get-stage-window.patch \
-					Fix-clutter-osx.h-to-be-includable-by-only-inclu.patch \
-					transition-unref.patch
+patchfiles			clutter-osx-get-stage-window.patch \
+					Fix-clutter-osx.h-to-be-includable-by-only-inclu.patch
 
 configure.args      --enable-x11-backend=yes \
 					--enable-xinput=yes \
