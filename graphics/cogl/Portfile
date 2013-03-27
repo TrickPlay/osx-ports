@@ -32,7 +32,8 @@ depends_lib         port:cairo \
 patchfiles          0001-New-error-parameter-added-to-bitmap-functions.patch
 
 
-configure.args      --enable-introspection=no
+configure.args      --enable-introspection=no \
+                    --enable-debug=no
 configure.ldflags-append    -framework AppKit -framework CoreFoundation -framework CoreGraphics
 
 post-patch {
@@ -78,7 +79,8 @@ variant quartz conflicts x11 {
 }
 
 variant debug {
-    configure.args-append   --enable-debug
+    configure.args-delete   --enable-debug=no
+    configure.args-append   --enable-debug=yes
 }
 
 default_variants    +quartz -x11

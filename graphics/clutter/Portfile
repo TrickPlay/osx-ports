@@ -33,7 +33,8 @@ depends_lib         port:atk \
                     port:json-glib
 
 patchfiles			clutter-osx-get-stage-window.patch \
-					Fix-clutter-osx.h-to-be-includable-by-only-inclu.patch
+					Fix-clutter-osx.h-to-be-includable-by-only-inclu.patch \
+                    Fix-build-with-debug-paths-enabled.patch
 
 configure.args      --enable-x11-backend=yes \
 					--enable-xinput=yes \
@@ -64,6 +65,10 @@ platform macosx {
 							  --enable-xinput=no \
                               --without-x
     }
+}
+
+variant debug {
+    configure.args-append   --enable-debug=yes
 }
 
 livecheck.type      regex
