@@ -34,7 +34,7 @@ patchfiles          0001-New-error-parameter-added-to-bitmap-functions.patch
 
 configure.args      --enable-introspection=no \
                     --enable-debug=no
-configure.ldflags-append    -framework AppKit -framework CoreFoundation -framework CoreGraphics
+configure.ldflags-append    -framework ApplicationServices
 
 post-patch {
     reinplace "/SUBDIRS/s/tests//" ${worksrcpath}/Makefile.am
