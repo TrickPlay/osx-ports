@@ -10,8 +10,8 @@ Subject: [PATCH] Fixed layout: container preferred size needs to account for
 
 diff --git a/clutter/clutter-fixed-layout.c b/clutter/clutter-fixed-layout.c
 index 3eba559..6a7ff22 100644
---- a/clutter/clutter-fixed-layout.c
-+++ b/clutter/clutter-fixed-layout.c
+--- clutter/clutter-fixed-layout.c
++++ clutter/clutter-fixed-layout.c
 @@ -66,19 +66,21 @@ clutter_fixed_layout_get_preferred_width (ClutterLayoutManager *manager,
         child != NULL;
         child = clutter_actor_get_next_sibling (child))
