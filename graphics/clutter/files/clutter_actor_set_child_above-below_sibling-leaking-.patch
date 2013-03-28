@@ -1,15 +1,5 @@
-From 26adc697eb4d56f68a17665d316211e82ae47052 Mon Sep 17 00:00:00 2001
-From: "Craig R. Hughes" <craig.git@rungie.com>
-Date: Thu, 28 Mar 2013 13:51:41 -0700
-Subject: [PATCH] clutter_actor_set_child_above/below_sibling leaking a
- reference
-
----
- clutter/clutter-actor.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/clutter/clutter-actor.c b/clutter/clutter-actor.c
-index 0fc8df6..eed167b 100644
+diff --git c/clutter/clutter-actor.c w/clutter/clutter-actor.c
+index 0fc8df6..21a2572 100644
 --- clutter/clutter-actor.c
 +++ clutter/clutter-actor.c
 @@ -13292,6 +13292,7 @@ clutter_actor_set_child_above_sibling (ClutterActor *self,
@@ -28,6 +18,11 @@ index 0fc8df6..eed167b 100644
  
    clutter_actor_queue_relayout (self);
  }
--- 
-1.8.2
-
+@@ -13376,6 +13378,7 @@ clutter_actor_set_child_at_index (ClutterActor *self,
+                                     ADD_CHILD_NOTIFY_FIRST_LAST,
+                                     insert_child_at_index,
+                                     GINT_TO_POINTER (index_));
++  g_object_unref (child);
+ 
+   clutter_actor_queue_relayout (self);
+ }
