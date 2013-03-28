@@ -1,0 +1,71 @@
+From 3a0bacbc6bce9ccc6ccb0f53dfcab1c06453dd00 Mon Sep 17 00:00:00 2001
+From: "Craig R. Hughes" <craig.git@rungie.com>
+Date: Thu, 28 Mar 2013 09:54:57 -0700
+Subject: [PATCH] Fixed layout: container preferred size needs to account for
+ anchor_points of children
+
+---
+ clutter/clutter-fixed-layout.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
+
+diff --git a/clutter/clutter-fixed-layout.c b/clutter/clutter-fixed-layout.c
+index 3eba559..6a7ff22 100644
+--- a/clutter/clutter-fixed-layout.c
++++ b/clutter/clutter-fixed-layout.c
+@@ -66,19 +66,21 @@ clutter_fixed_layout_get_preferred_width (ClutterLayoutManager *manager,
+        child != NULL;
+        child = clutter_actor_get_next_sibling (child))
+     {
+-      gfloat child_x, child_min, child_natural;
++      gfloat child_x, child_anchor_x, dummy, child_min, child_natural;
+ 
+       child_x = clutter_actor_get_x (child);
+ 
++      clutter_actor_get_anchor_point(child, &child_anchor_x, &dummy);
++
+       clutter_actor_get_preferred_size (child,
+                                         &child_min, NULL,
+                                         &child_natural, NULL);
+ 
+-      if (child_x + child_min > min_right)
+-        min_right = child_x + child_min;
++      if ((child_x - child_anchor_x) + child_min > min_right)
++        min_right = (child_x - child_anchor_x) + child_min;
+ 
+-      if (child_x + child_natural > natural_right)
+-        natural_right = child_x + child_natural;
++      if ((child_x - child_anchor_x) + child_natural > natural_right)
++        natural_right = (child_x - child_anchor_x) + child_natural;
+     }
+ 
+   if (min_width_p)
+@@ -108,19 +110,21 @@ clutter_fixed_layout_get_preferred_height (ClutterLayoutManager *manager,
+        child != NULL;
+        child = clutter_actor_get_next_sibling (child))
+     {
+-      gfloat child_y, child_min, child_natural;
++      gfloat child_y, child_anchor_y, dummy, child_min, child_natural;
+ 
+       child_y = clutter_actor_get_y (child);
+ 
++      clutter_actor_get_anchor_point(child, &dummy, &child_anchor_y);
++
+       clutter_actor_get_preferred_size (child,
+                                         NULL, &child_min,
+                                         NULL, &child_natural);
+ 
+-      if (child_y + child_min > min_bottom)
+-        min_bottom = child_y + child_min;
++      if ((child_y - child_anchor_y) + child_min > min_bottom)
++        min_bottom = (child_y - child_anchor_y) + child_min;
+ 
+-      if (child_y + child_natural > natural_bottom)
+-        natural_bottom = child_y + child_natural;
++      if ((child_y - child_anchor_y) + child_natural > natural_bottom)
++        natural_bottom = (child_y - child_anchor_y) + child_natural;
+     }
+ 
+   if (min_height_p)
+-- 
+1.8.2
+
