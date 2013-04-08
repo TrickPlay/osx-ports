@@ -5,6 +5,7 @@ PortSystem          1.0
 
 name                cogl
 version             1.14.0
+revision            1
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -29,7 +30,8 @@ depends_lib         port:cairo \
                     port:gobject-introspection
 
 
-patchfiles          0001-New-error-parameter-added-to-bitmap-functions.patch
+patchfiles          0001-quartz-image-Pass-a-CoglError-argument-to-the-bitmap.patch \
+                    0002-quartz-image-Pass-framework-ApplicationServices-in-t.patch
 
 
 configure.args      --enable-introspection=no \

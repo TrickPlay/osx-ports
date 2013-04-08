@@ -1,0 +1,35 @@
+From 3ba03feb7da8e277dcdf53e8d01e12239d6dcf7c Mon Sep 17 00:00:00 2001
+From: Neil Roberts <neil@linux.intel.com>
+Date: Thu, 28 Mar 2013 14:03:31 +0000
+Subject: [PATCH 2/2] quartz-image: Pass -framework ApplicationServices in the
+ linker flags
+
+The quartz image backend is using functions from the
+ApplicationServices framework and I was getting linker errors if I
+didn't use this option. I'm not sure how anyone managed to build it
+before without this.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=696730
+
+Reviewed-by: Robert Bragg <robert@linux.intel.com>
+
+(cherry picked from commit 54d9139a929560d6703428371b38b83e7d965f45)
+---
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configure.ac b/configure.ac
+index ef65ae4..3e9742b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -474,6 +474,7 @@ AS_IF(
+     EXPERIMENTAL_OPTIONS="$EXPERIMENTAL_OPTIONS Quartz Core Graphics,"
+     AC_DEFINE([USE_QUARTZ], 1,
+ 	      [Use Core Graphics (Quartz) for loading image data])
++    COGL_EXTRA_LDFLAGS="$COGL_EXTRA_LDFLAGS -framework ApplicationServices"
+     COGL_IMAGE_BACKEND="quartz"
+   ],
+   [
+-- 
+1.8.2
+
