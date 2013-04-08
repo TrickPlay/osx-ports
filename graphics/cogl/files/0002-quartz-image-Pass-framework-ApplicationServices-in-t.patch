@@ -20,8 +20,8 @@ Reviewed-by: Robert Bragg <robert@linux.intel.com>
 
 diff --git a/configure.ac b/configure.ac
 index ef65ae4..3e9742b 100644
---- a/configure.ac
-+++ b/configure.ac
+--- configure.ac
++++ configure.ac
 @@ -474,6 +474,7 @@ AS_IF(
      EXPERIMENTAL_OPTIONS="$EXPERIMENTAL_OPTIONS Quartz Core Graphics,"
      AC_DEFINE([USE_QUARTZ], 1,
@@ -30,6 +30,6 @@ index ef65ae4..3e9742b 100644
      COGL_IMAGE_BACKEND="quartz"
    ],
    [
--- 
+--
 1.8.2
 

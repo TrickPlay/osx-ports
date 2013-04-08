@@ -20,8 +20,8 @@ Reviewed-by: Robert Bragg <robert@linux.intel.com>
 
 diff --git a/cogl/cogl-bitmap-pixbuf.c b/cogl/cogl-bitmap-pixbuf.c
 index a02b253..ad34234 100644
---- a/cogl/cogl-bitmap-pixbuf.c
-+++ b/cogl/cogl-bitmap-pixbuf.c
+--- cogl/cogl-bitmap-pixbuf.c
++++ cogl/cogl-bitmap-pixbuf.c
 @@ -125,11 +125,24 @@ _cogl_bitmap_from_file (CoglContext *ctx,
    /* allocate buffer big enough to hold pixel data */
    bmp = _cogl_bitmap_new_with_malloc_buffer (ctx,
@@ -46,9 +46,9 @@ index a02b253..ad34234 100644
 +      CFRelease (image);
 +      return NULL;
 +    }
- 
+
    /* render to buffer */
    color_space = CGColorSpaceCreateWithName (kCGColorSpaceGenericRGB);
--- 
+--
 1.8.2
 
