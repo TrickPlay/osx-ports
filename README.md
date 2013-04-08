@@ -28,7 +28,11 @@ Next, you need to tell MacPorts to look in this newly created directory for pack
 
     sudo echo "${HOME}/.ports" | pbcopy
     sudo vi /opt/local/etc/macports/sources.conf
-    # Now type: ":$<enter>i<cmd-v><enter><esc>:wq!" without the quotes
+    # Now type: ":$<enter>ifile://<cmd-v> [nosync]<enter><esc>:wq!" without the quotes.
+
+You should end up with a line that looks like:
+
+    file:///Users/craig/.ports [nosync]
 
 Next, we tell the ports system to update itself, and then install everything:
 
