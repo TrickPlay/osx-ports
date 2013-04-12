@@ -5,7 +5,7 @@ PortSystem      1.0
 
 name            trickplay-deps
 version         2.0.0
-revision        2
+revision        3
 categories      devel
 platforms       darwin
 maintainers     trickplay.com:craig
@@ -54,7 +54,8 @@ depends_lib     \
                 port:sqlite3 \
                 port:tiff \
                 port:uriparser \
-                port:ninja
+                port:ninja \
+                port:py27-pyqt4
 
 distfiles
 use_configure   no

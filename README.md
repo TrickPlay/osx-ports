@@ -37,7 +37,7 @@ You should end up with a line that looks like:
 Next, we tell the ports system to update itself, and then install everything:
 
     sudo port selfupdate
-    sudo port install cairo +quartz +x11  pango +quartz +x11 curl +ares +ssl giflib +no_x11 gstreamer010-gst-plugins-base +no_x11 +no_gnome_vfs libsoup +no_gnome cogl +quartz +no_x11 -x11 clutter +quartz +no_x11 -x11 gstreamer010-gst-ffmpeg gstreamer010-gst-plugins-bad +no_x11 gstreamer010-gst-plugins-good gstreamer010-gst-plugins-ugly mesa ninja trickplay-deps
+    sudo port install cairo +quartz +x11  pango +quartz +x11 curl +ares +ssl giflib +no_x11 gstreamer010-gst-plugins-base +no_x11 +no_gnome_vfs libsoup +no_gnome cogl +quartz +no_x11 -x11 clutter +quartz +no_x11 -x11 gstreamer010-gst-ffmpeg gstreamer010-gst-plugins-bad +no_x11 gstreamer010-gst-plugins-good gstreamer010-gst-plugins-ugly mesa ninja py27-pyqt4 +scintilla trickplay-deps
 
 After you've done that, you should then be able to build the trickplay engine from source.  Some day we'll have release versions of the engine installable directly from MacPorts.
 
