@@ -1,0 +1,25 @@
+PortSystem          1.0
+
+name                uprof
+version             0.3
+#revision            3
+set branch          [string range $version 0 [expr [string last "." $version] - 1]]
+categories          devel
+platforms           darwin macosx
+description         A profiling library.
+long_description    UProf is a profiling library for instrumenting libraries and applications to get timing information.
+master_sites        http://developer.trickplay.com/sources
+use_xz              yes
+
+checksums           rmd160  15807c4bd73d4219c58088ee9ca37ae0f6ad149e \
+                    sha256  21d637760ab78b49fbbfc7a6efb3e1f246e49c5b9c61a9f098273ef6b65dd9e1
+
+depends_build       port:pkgconfig \
+                    port:gnome-common
+
+depends_lib         port:dbus \
+                    port:glib2 \
+                    port:ncurses
+
+patchfiles          adjust-makefiles-for-mac.patch \
+                    no-uprof-tool.patch

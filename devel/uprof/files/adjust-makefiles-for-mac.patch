@@ -1,0 +1,19 @@
+--- Makefile.am
++++ Makefile.am
+@@ -1,4 +1,4 @@
+-SUBDIRS = uprof tests doc
++SUBDIRS = uprof
+ #SUBDIRS += po
+ 
+ ACLOCAL_AMFLAGS = -I autotools/m4
+--- uprof/Makefile.am
++++ uprof/Makefile.am
+@@ -36,7 +36,7 @@ libuprof_@UPROF_MAJOR_VERSION@_@UPROF_MINOR_VERSION@_la_SOURCES = \
+ 	uprof-marshal.c \
+ 	$(public_h_source)
+ 
+-libuprof_@UPROF_MAJOR_VERSION@_@UPROF_MINOR_VERSION@_la_LIBADD = -lrt
++libuprof_@UPROF_MAJOR_VERSION@_@UPROF_MINOR_VERSION@_la_LIBADD =
+ libuprof_@UPROF_MAJOR_VERSION@_@UPROF_MINOR_VERSION@_la_LDFLAGS = \
+ 	-export-dynamic \
+ 	@UPROF_DEP_LIBS@

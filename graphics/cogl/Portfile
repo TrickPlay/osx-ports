@@ -5,7 +5,7 @@ PortSystem          1.0
 
 name                cogl
 version             1.14.0
-revision            1
+revision            2
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -83,6 +83,10 @@ variant quartz conflicts x11 {
 variant debug {
     configure.args-delete   --enable-debug=no
     configure.args-append   --enable-debug=yes
+}
+
+variant profile {
+    configure.args-append   --enable-profile=yes
 }
 
 default_variants    +quartz -x11

@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 104977 2013-04-06 14:48:08Z devans@macports.org $
+
+PortSystem      1.0
+
+name            gnome-common
+version         2.34.0
+revision        1
+set branch      [join [lrange [split ${version} .] 0 1] .]
+maintainers     nomaintainer
+categories      gnome
+platforms       darwin
+license         GPL-3
+installs_libs   no
+supported_archs noarch
+
+description     Files that should be in pretty much every GNOME application.
+
+long_description \
+    $description
+
+homepage        http://www.gnome.org/
+master_sites    gnome:sources/${name}/${branch}/
+use_bzip2       yes
+
+checksums       sha256  7a9c4f9ab975501c36be3192aa61641abca045a215d519d7d00527706f1de1df \
+                rmd160  0f2d5e977af8ff6ab471698d35afe34a5dd2ca38
+
+patchfiles      patch-gnome-autogen.sh.diff \
+                gnome-autogen-recent-automake.patch
+
+depends_build   port:pkgconfig
+
+livecheck.type  gnome
