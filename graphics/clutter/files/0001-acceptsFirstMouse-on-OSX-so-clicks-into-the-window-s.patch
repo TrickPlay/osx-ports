@@ -1,0 +1,30 @@
+From dcb2a5e99bc5b5eec944213db85db18cd4095862 Mon Sep 17 00:00:00 2001
+From: "Craig R. Hughes" <craig.git@rungie.com>
+Date: Tue, 23 Apr 2013 15:41:32 -0700
+Subject: [PATCH] acceptsFirstMouse on OSX so clicks into the window send the
+ mouse event to the app
+
+---
+ clutter/osx/clutter-stage-osx.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/clutter/osx/clutter-stage-osx.c b/clutter/osx/clutter-stage-osx.c
+index 9536e95..236e50a 100644
+--- clutter/osx/clutter-stage-osx.c
++++ clutter/osx/clutter-stage-osx.c
+@@ -204,6 +204,12 @@ clutter_stage_osx_get_wrapper (ClutterStageWindow *stage_window);
+   [[self openGLContext] flushBuffer];
+ }
+
++/* In order to get click on first click */
++- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
++{
++    return YES;
++}
++
+ /* In order to receive key events */
+ - (BOOL) acceptsFirstResponder
+ {
+--
+1.7.12.4 (Apple Git-37)
+
