@@ -1,0 +1,26 @@
+From 04250aee64b31e9b3544b258bd8ff472e4095e9c Mon Sep 17 00:00:00 2001
+From: "Craig R. Hughes" <craig.git@rungie.com>
+Date: Thu, 25 Apr 2013 13:37:49 -0700
+Subject: [PATCH] [osx] Use sendEvent not postEvent to deliver the synthetic
+ NSMouseEntered or it doesn't work.
+
+---
+ clutter/osx/clutter-stage-osx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git clutter/osx/clutter-stage-osx.c clutter/osx/clutter-stage-osx.c
+index 236e50a..5650927 100644
+--- clutter/osx/clutter-stage-osx.c
++++ clutter/osx/clutter-stage-osx.c
+@@ -449,7 +449,7 @@ clutter_stage_osx_show (ClutterStageWindow *stage_window,
+                                trackingNumber: [self->view trackingRect]
+                                      userData: nil];
+ 
+-      [NSApp postEvent:event atStart:NO];
++      [NSApp sendEvent:event];
+     }
+ 
+   [self->view setHidden:isViewHidden];
+-- 
+1.7.12.4 (Apple Git-37)
+

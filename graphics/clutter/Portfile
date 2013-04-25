@@ -5,7 +5,7 @@ PortSystem          1.0
 
 name                clutter
 version             1.14.0
-revision            4
+revision            5
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -38,7 +38,8 @@ patchfiles          group-size-calculation-include-anchor-point.patch \
                     Fix-clutter-osx.h-to-be-includable-by-only-inclu.patch \
                     Fix-build-with-debug-paths-enabled.patch \
                     clutter_actor_set_child_above-below_sibling-leaking-.patch \
-                    0001-acceptsFirstMouse-on-OSX-so-clicks-into-the-window-s.patch
+                    0001-acceptsFirstMouse-on-OSX-so-clicks-into-the-window-s.patch \
+                    0001-osx-Use-sendEvent-not-postEvent-to-deliver-the-synth.patch
 
 configure.args      --enable-x11-backend=yes \
                     --enable-xinput=yes \
