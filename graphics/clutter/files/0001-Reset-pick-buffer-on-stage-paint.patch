@@ -1,0 +1,87 @@
+From 77fe64d79df8c6eabbd1e8c7fc04949c121460ce Mon Sep 17 00:00:00 2001
+From: "Craig R. Hughes" <craig.git@rungie.com>
+Date: Fri, 26 Apr 2013 11:50:52 -0700
+Subject: [PATCH] Reset pick buffer on stage paint
+
+---
+ clutter/clutter-stage.c | 50 +++++++++++++++++++++++++++----------------------
+ 1 file changed, 28 insertions(+), 22 deletions(-)
+
+diff --git clutter/clutter-stage.c clutter/clutter-stage.c
+index 333a3d3..f24a4cf 100644
+--- clutter/clutter-stage.c
++++ clutter/clutter-stage.c
+@@ -671,6 +671,28 @@ _clutter_stage_do_paint (ClutterStage                *stage,
+   clutter_actor_paint (CLUTTER_ACTOR (stage));
+ }
+ 
++static gboolean
++_clutter_stage_get_pick_buffer_valid (ClutterStage *stage, ClutterPickMode mode)
++{
++  g_return_val_if_fail (CLUTTER_IS_STAGE (stage), FALSE);
++
++  if (stage->priv->pick_buffer_mode != mode)
++    return FALSE;
++
++  return stage->priv->have_valid_pick_buffer;
++}
++
++static void
++_clutter_stage_set_pick_buffer_valid (ClutterStage   *stage,
++                                      gboolean        valid,
++                                      ClutterPickMode mode)
++{
++  g_return_if_fail (CLUTTER_IS_STAGE (stage));
++
++  stage->priv->have_valid_pick_buffer = !!valid;
++  stage->priv->pick_buffer_mode = mode;
++}
++
+ static void
+ clutter_stage_paint (ClutterActor *self)
+ {
+@@ -690,6 +712,12 @@ clutter_stage_paint (ClutterActor *self)
+ 
+   CLUTTER_NOTE (PAINT, "Initializing stage paint");
+ 
++  if(priv->have_valid_pick_buffer)
++  {
++    _clutter_stage_set_pick_buffer_valid(CLUTTER_STAGE(self),FALSE,-1);
++    priv->picks_per_frame = 0;
++  }
++
+   /* composite the opacity to the stage color */
+   clutter_actor_get_background_color (self, &bg_color);
+   real_alpha = clutter_actor_get_opacity (self)
+@@ -1105,28 +1133,6 @@ _clutter_stage_maybe_relayout (ClutterActor *actor)
+     }
+ }
+ 
+-static gboolean
+-_clutter_stage_get_pick_buffer_valid (ClutterStage *stage, ClutterPickMode mode)
+-{
+-  g_return_val_if_fail (CLUTTER_IS_STAGE (stage), FALSE);
+-
+-  if (stage->priv->pick_buffer_mode != mode)
+-    return FALSE;
+-
+-  return stage->priv->have_valid_pick_buffer;
+-}
+-
+-static void
+-_clutter_stage_set_pick_buffer_valid (ClutterStage   *stage,
+-                                      gboolean        valid,
+-                                      ClutterPickMode mode)
+-{
+-  g_return_if_fail (CLUTTER_IS_STAGE (stage));
+-
+-  stage->priv->have_valid_pick_buffer = !!valid;
+-  stage->priv->pick_buffer_mode = mode;
+-}
+-
+ static void
+ clutter_stage_do_redraw (ClutterStage *stage)
+ {
+-- 
+1.7.12.4 (Apple Git-37)
+
