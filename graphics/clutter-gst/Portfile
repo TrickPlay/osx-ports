@@ -4,8 +4,7 @@
 PortSystem      1.0
 
 name            clutter-gst
-version         1.6.0
-revision        2
+version         2.0.2
 license         LGPL-2.1
 set branch      [string range $version 0 [expr [string last "." $version] - 1]]
 categories      graphics
@@ -19,18 +18,21 @@ homepage        http://www.clutter-project.org/
 master_sites    gnome:sources/${name}/${branch}
 use_xz          yes
 
-checksums       sha256  abc879cdd562f1640a825131405f4327a427bfe65b805ebc25d0c78909c8c622 \
-                rmd160  1b34af44136ec413af2c55326b1ff8728516e929
-
 patchfiles      patch-clutter-gst-clutter-gst-video-sink.c.diff
+
+checksums           sha256  577957598d6ee407348dc5d78879da2b212ae54fb3071f86f8409e393dde34c4 \
+                    rmd160  f18fbb17d188eab30b0488a6e673cdb9fc2218a1
 
 depends_build \
     port:pkgconfig
 
 depends_lib \
     port:clutter \
-    port:gstreamer010-gst-plugins-base
+    port:gstreamer1-gst-plugins-base
 
 configure.args  --enable-introspection=no
+
+configure.cflags-append         [exec pkg-config --cflags gdk-pixbuf-2.0]
+configure.ldflags-append        [exec pkg-config --libs gdk-pixbuf-2.0]
 
 livecheck.url   http://ftp.gnome.org/pub/gnome/sources/${name}/${branch}/
