@@ -89,8 +89,8 @@ variant profile {
     configure.args-append   --enable-profile=yes
 }
 
-variant cogl-gst {
-    depends_lib-append      gstreamer1-gst-plugins-base
+variant gst {
+    depends_lib-append      port:gstreamer1-gst-plugins-base
     patchfiles-append       cogl-gst.patch
     configure.args-append   --enable-cogl-gst
 }
