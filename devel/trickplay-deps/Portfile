@@ -5,7 +5,7 @@ PortSystem      1.0
 
 name            trickplay-deps
 version         2.0.0
-revision        3
+revision        4
 categories      devel
 platforms       darwin
 maintainers     trickplay.com:craig
@@ -32,12 +32,12 @@ depends_lib     \
                 port:gettext \
                 port:giflib \
                 port:glib2 \
-                port:gstreamer010-gst-ffmpeg \
-                port:gstreamer010-gst-plugins-base \
-                port:gstreamer010-gst-plugins-good \
-                port:gstreamer010-gst-plugins-bad \
-                port:gstreamer010-gst-plugins-ugly \
-                port:gstreamer010 \
+                port:gstreamer1-gst-libav \
+                port:gstreamer1-gst-plugins-base \
+                port:gstreamer1-gst-plugins-good \
+                port:gstreamer1-gst-plugins-bad \
+                port:gstreamer1-gst-plugins-ugly \
+                port:gstreamer1 \
                 port:ImageMagick \
                 port:jpeg \
                 port:json-glib \
@@ -55,7 +55,8 @@ depends_lib     \
                 port:tiff \
                 port:uriparser \
                 port:ninja \
-                port:py27-pyqt4
+                port:py27-pyqt4 \
+                port:py27-qscintilla
 
 distfiles
 use_configure   no
