@@ -5,7 +5,7 @@ PortSystem      1.0
 
 name            trickplay-deps
 version         2.0.0
-revision        4
+revision        5
 categories      devel
 platforms       darwin
 maintainers     trickplay.com:craig
@@ -76,7 +76,7 @@ cd \${HOME}/somepath
 git clone git@git.trickplay.com:tp-master.git trickplay
 cd trickplay
 mkdir build
-CC=clang CXX=clang++ cmake -G Ninja -DTP_WITH_WEBGL=1 -DTP_PROFILING=1 -DCMAKE_BUILD_TYPE=RelMinSize -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -H. -Bbuild
+CC=clang CXX=clang++ cmake -G Ninja -DTP_NEW_MEDIA=1 -DTP_WITH_WEBGL=1 -DTP_PROFILING=1 -DCMAKE_BUILD_TYPE=RelMinSize -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -H. -Bbuild
 ninja -C build
 "
 

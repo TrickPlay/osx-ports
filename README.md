@@ -45,7 +45,7 @@ After you've done that, you should then be able to build the trickplay engine fr
     git clone git@git.trickplay.com:tp-master.git trickplay
     cd trickplay
     git checkout develop
-    CC=clang CXX=clang++ cmake -G Ninja -DTP_WITH_WEBGL=1 -DTP_PROFILING=1 -DCMAKE_BUILD_TYPE=RelMinSize -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -H. -Bbuild
+    CC=clang CXX=clang++ cmake -G Ninja -DTP_NEW_MEDIA=1 -DTP_WITH_WEBGL=1 -DTP_PROFILING=1 -DCMAKE_BUILD_TYPE=RelMinSize -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -H. -Bbuild
     ninja -C build
 
 What I typically do is create a symlink that'll behave nice.
