@@ -4,8 +4,8 @@
 PortSystem          1.0
 
 name                clutter
-version             1.14.0
-revision            6
+version             1.14.4
+revision            1
 set branch          [string range $version 0 [expr [string last "." $version] - 1]]
 categories          graphics
 maintainers         devans openmaintainer
@@ -18,8 +18,8 @@ homepage            http://www.clutter-project.org/
 master_sites        http://download.gnome.org/sources/${name}/${branch}/
 use_xz              yes
 
-checksums           rmd160  82b1058b553aaa17f555271f4cb51f997882f9ed \
-                    sha256  3b7a07373c27fad4f0cf59fd66a6855d66f9a42b7b570a00ca51a8b488af64d5
+checksums           rmd160  c5ca1e458b8afdbab1f4958d4b7cdf2c9f0c393e \
+                    sha256  c996d91fff6fff24d9e23dcd545439ebc6b999fb1cf9ee44c28ca54c49c0ee1c
 
 depends_build       port:pkgconfig
 
@@ -36,7 +36,6 @@ depends_lib         port:atk \
 patchfiles          group-size-calculation-include-anchor-point.patch \
                     clutter-osx-get-stage-window.patch \
                     Fix-clutter-osx.h-to-be-includable-by-only-inclu.patch \
-                    Fix-build-with-debug-paths-enabled.patch \
                     clutter_actor_set_child_above-below_sibling-leaking-.patch \
                     0001-acceptsFirstMouse-on-OSX-so-clicks-into-the-window-s.patch \
                     0001-osx-Use-sendEvent-not-postEvent-to-deliver-the-synth.patch \

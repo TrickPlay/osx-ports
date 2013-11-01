@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 103325 2013-02-22 03:58:11Z rmstonecipher@macports.org $
+# $Id: Portfile 111413 2013-09-20 16:00:53Z devans@macports.org $
 
 PortSystem      1.0
 
 name            clutter-gst
-version         2.0.2
-license         LGPL-2.1
+version         2.0.8
+revision		1
+license         LGPL-2.1+
 set branch      [string range $version 0 [expr [string last "." $version] - 1]]
 categories      graphics
 description     Clutter GStreamer integration library.
@@ -14,25 +15,29 @@ long_description Clutter-GStreamer (clutter-gst) is an integration library \
                  the ClutterMedia interface using GStreamer.
 maintainers     nodamage.com:nodamage openmaintainer
 platforms       darwin
-homepage        http://www.clutter-project.org/
+homepage        http://blogs.gnome.org/clutter/
 master_sites    gnome:sources/${name}/${branch}
-use_xz          yes
 
 patchfiles      patch-clutter-gst-clutter-gst-video-sink.c.diff
+use_xz          yes
 
-checksums           sha256  577957598d6ee407348dc5d78879da2b212ae54fb3071f86f8409e393dde34c4 \
-                    rmd160  f18fbb17d188eab30b0488a6e673cdb9fc2218a1
+checksums       rmd160  8618558439f0880efb09b27744a6bf5c0d2a2e1a \
+                sha256  cee6b0667c74a54fdf43f0ec7c1dc8ff0ffd1c594e0d43529de45048f8080a4d
 
 depends_build \
     port:pkgconfig
 
 depends_lib \
+    path:lib/pkgconfig/glib-2.0.pc:glib2 \
     port:clutter \
-    port:gstreamer1-gst-plugins-base
+    port:gstreamer1 \
+    port:gstreamer1-gst-plugins-base \
+    port:gstreamer1-gst-plugins-bad
 
-configure.args  --enable-introspection=no
+configure.ldflags-append -framework OpenGL
 
-configure.cflags-append         [exec pkg-config --cflags gdk-pixbuf-2.0]
-configure.ldflags-append        [exec pkg-config --libs gdk-pixbuf-2.0]
+configure.args  --enable-debug=yes \
+                --enable-introspection=yes \
+                --disable-silent-rules
 
-livecheck.url   http://ftp.gnome.org/pub/gnome/sources/${name}/${branch}/
+livecheck.type  gnome

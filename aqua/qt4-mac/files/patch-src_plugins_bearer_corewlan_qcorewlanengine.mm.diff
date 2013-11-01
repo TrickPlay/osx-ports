@@ -1,0 +1,122 @@
+--- src/plugins/bearer/corewlan/qcorewlanengine.mm.orig 2013-10-29 10:04:30.000000000 +0100
++++ src/plugins/bearer/corewlan/qcorewlanengine.mm	2013-10-29 10:14:59.000000000 +0100
+@@ -52,6 +52,11 @@
+ #include <QtCore/qdebug.h>
+ 
+ #include <QDir>
++
++#ifdef MAC_SDK_10_7
++    #include <CoreWLAN/CoreWLANConstants.h>
++    #include <CoreWLAN/CoreWLANTypes.h>
++#endif
+ #include <CoreWLAN/CoreWLAN.h>
+ #include <CoreWLAN/CWInterface.h>
+ #include <CoreWLAN/CWNetwork.h>
+@@ -101,7 +106,7 @@
+     NSAutoreleasePool *autoreleasepool = [[NSAutoreleasePool alloc] init];
+     notificationCenter = [NSNotificationCenter defaultCenter];
+     currentInterface = [CWInterface interfaceWithName:nil];
+-    [notificationCenter addObserver:self selector:@selector(notificationHandler:) name:kCWPowerDidChangeNotification object:nil];
++    [notificationCenter addObserver:self selector:@selector(notificationHandler:) name:CWPowerDidChangeNotification object:nil];
+     [locker unlock];
+     [autoreleasepool release];
+     return self;
+@@ -175,18 +180,12 @@
+ 
+     if([currentInterface power]) {
+         NSError *err = nil;
+-        NSDictionary *parametersDict =  [NSDictionary dictionaryWithObjectsAndKeys:
+-                                   [NSNumber numberWithBool:YES], kCWScanKeyMerge,
+-                                   [NSNumber numberWithInt:kCWScanTypeFast], kCWScanKeyScanType,
+-                                   [NSNumber numberWithInteger:100], kCWScanKeyRestTime, nil];
+-
+-        NSArray* apArray = [currentInterface scanForNetworksWithParameters:parametersDict error:&err];
+-        CWNetwork *apNetwork;
+-
++        
++        NSSet* apArray = [currentInterface scanForNetworksWithSSID:nil error:&err];
++        
+         if (!err) {
+ 
+-            for(uint row=0; row < [apArray count]; row++ ) {
+-                apNetwork = [apArray objectAtIndex:row];
++            for(CWNetwork *apNetwork in apArray) {
+ 
+                 const QString networkSsid = qt_NSStringToQString([apNetwork ssid]);
+                 const QString id = QString::number(qHash(QLatin1String("corewlan:") + networkSsid));
+@@ -194,7 +193,7 @@
+ 
+                 QNetworkConfiguration::StateFlags state = QNetworkConfiguration::Undefined;
+                 bool known = isKnownSsid(networkSsid);
+-                if( [currentInterface.interfaceState intValue] == kCWInterfaceStateRunning) {
++                if( [currentInterface serviceActive] )  {
+                     if( networkSsid == qt_NSStringToQString( [currentInterface ssid])) {
+                         state = QNetworkConfiguration::Active;
+                     }
+@@ -207,7 +206,7 @@
+                     }
+                 }
+                 QNetworkConfiguration::Purpose purpose = QNetworkConfiguration::UnknownPurpose;
+-                if([[apNetwork securityMode] intValue] == kCWSecurityModeOpen) {
++                if([[apNetwork supportsSecurity] intValue] == kCWSecurityNone) {
+                     purpose = QNetworkConfiguration::PublicPurpose;
+                 } else {
+                     purpose = QNetworkConfiguration::PrivatePurpose;
+@@ -237,7 +236,7 @@
+                 interfaceName = ij.value();
+             }
+ 
+-            if( [currentInterface.interfaceState intValue] == kCWInterfaceStateRunning) {
++            if( [currentInterface serviceActive] ) {
+                 if( networkSsid == qt_NSStringToQString([currentInterface ssid])) {
+                     state = QNetworkConfiguration::Active;
+                 }
+@@ -508,7 +507,7 @@
+                     else
+                         wantedSsid = thisName;
+ 
+-                    [params setValue: [array objectAtIndex:i] forKey:kCWAssocKey8021XProfile];
++                    //[params setValue: [array objectAtIndex:i] forKey:kCWAssocKey8021XProfile];
+                     using8021X = true;
+                     break;
+                 }
+@@ -528,18 +527,11 @@
+                 }
+             }
+         }
+-        NSDictionary *scanParameters = [NSDictionary dictionaryWithObjectsAndKeys:
+-                                        [NSNumber numberWithBool:YES], kCWScanKeyMerge,
+-                                        [NSNumber numberWithInt:kCWScanTypeFast], kCWScanKeyScanType,
+-                                        [NSNumber numberWithInteger:100], kCWScanKeyRestTime,
+-                                        qt_QStringToNSString(wantedSsid), kCWScanKeySSID,
+-                                        nil];
+-
+-        NSArray *scanArray = [wifiInterface scanForNetworksWithParameters:scanParameters error:&err];
++        
++        NSSet *scanArray = [wifiInterface scanForNetworksWithSSID:nil error:&err];
+ 
+         if(!err) {
+-            for(uint row=0; row < [scanArray count]; row++ ) {
+-                CWNetwork *apNetwork = [scanArray objectAtIndex:row];
++            for(CWNetwork *apNetwork in scanArray) {
+ 
+                 if(wantedSsid == qt_NSStringToQString([apNetwork ssid])) {
+ 
+@@ -595,7 +587,7 @@
+                         } else {
+                             qDebug() << "SecKeychainSearchCopyNext error";
+                         }
+-                        [params setValue: password forKey: kCWAssocKeyPassphrase];
++                        //[params setValue: password forKey: kCWAssocKeyPassphrase];
+                     } // end using8021X
+ 
+ 
+@@ -634,7 +626,7 @@
+         [CWInterface interfaceWithName: qt_QStringToNSString(interfaceString)];
+ 
+     [wifiInterface disassociate];
+-    if ([[wifiInterface interfaceState]intValue] != kCWInterfaceStateInactive) {
++    if ( [wifiInterface serviceActive] ){
+         locker.unlock();
+         emit connectionError(id, DisconnectionError);
+         locker.relock();
